@@ -1,0 +1,28 @@
+{
+  "name": "node_scraped_api",
+  "version": "1.0.0",
+  "description": "Toy implementation for DOM traversal and dynamic gathering ",
+  "main": "index.js",
+  "scripts": {
+    "test": "jenkins",
+    "start:frontend": "",
+    "start:docker": "",
+    "start": "concurrently -n \"FRONTEND,DOCKER_BACKEND\" -c \"red,blue\" -p \"[{name}]\" \"npm run start:frontend\" \"npm run start:docker\""
+  },
+  "keywords": [
+    "scraper",
+    "web-tools"
+  ],
+  "author": "Michael Maciel",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^9.1.2",
+    "express": "^4.21.2",
+    "node-html-parser": "^7.0.1",
+    "nodemon": "^3.1.9",
+    "postgres": "^3.4.5"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.16"
+  }
+}
