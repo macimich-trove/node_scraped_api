@@ -1,28 +1,46 @@
 {
-  "name": "node_scraped_api",
+  "name": "WebWatcher",
+  "description": "This is a DOM NODE traversal tool that displays all elements as a graph",
   "version": "1.0.0",
-  "description": "Toy implementation for DOM traversal and dynamic gathering ",
   "main": "index.js",
   "scripts": {
-    "test": "jenkins",
-    "start:frontend": "",
-    "start:docker": "",
-    "start": "concurrently -n \"FRONTEND,DOCKER_BACKEND\" -c \"red,blue\" -p \"[{name}]\" \"npm run start:frontend\" \"npm run start:docker\""
+    "start:frontend": "cd frontend && npm start",
+    "start:backend": "node index.js",
+    "start": "concurrently -n \"FRONTEND,BACKEND\" -c \"red,blue\" -p \"[{name}]\" \"npm run start:frontend\" \"npm run start:backend\""
   },
-  "keywords": [
-    "scraper",
-    "web-tools"
-  ],
-  "author": "Michael Maciel",
-  "license": "MIT",
   "dependencies": {
+    "axios": "^1.8.4",
+    "cheerio": "^1.0.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "concurrently": "^9.1.2",
-    "express": "^4.21.2",
+    "cors": "^2.8.5",
+    "docker": "^0.2.14",
+    "express": "^5.1.0",
+    "getsetdeep": "^5.6.0",
+    "lucide-react": "^0.507.0",
+    "morgan": "^1.10.0",
+    "node-cron": "^3.0.3",
     "node-html-parser": "^7.0.1",
     "nodemon": "^3.1.9",
-    "postgres": "^3.4.5"
+    "pm2": "^6.0.5",
+    "postgres": "^3.4.5",
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss": "^4.1.5",
+    "tw-animate-css": "^1.2.9"
   },
-  "devDependencies": {
-    "tailwindcss": "^3.4.16"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/macimich-trove/node_scraped_api.git"
+  },
+  "keywords": [
+    "Toy-Web-scraper",
+    "Dom-traversal"
+  ],
+  "author": "Michael Maciel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/macimich-trove/node_scraped_api/issues"
+  },
+  "homepage": "https://github.com/macimich-trove/node_scraped_api#readme"
 }
