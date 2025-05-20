@@ -4,68 +4,52 @@ const cors = require('cors');
 const morganlogs = require('morgan');
 
 
-
-//####Nodejs native package is Distinct from new WritableStream### 
-//E.G. const StreamObject = new WritableStream ({
-//https://nodejs.org/api/stream.html
+//const logger = require('./middleware');
 
 
 
+
+var corsOptions = [{origin: 'localhost:3000', methods: ['GET', 'POST', 'PUT', 'DELETE']},{}]
+
+
+app.use(cors(...corsOptions));
+
+
+
+const port = 4001;
 const Stream = require('stream');
-
-const port = 4000;
-
-
-//PERF LOGGER 
-//LOGGING DONE THE HARD WAY
-//I TOOK THE SCENIC ROUTE
-
 
 const RequestMethodsLog = [];
 app.use(express.json()); 
-const StreamObject = new Stream.Writable({
-    write:function(chunk,encoding, callback) {
-try{
-   console.log(chunk.toString());
-   console.log("Writing Request: #", RequestMethodsLog.push(chunk.toString()));
-   console.log("Request Body:",RequestMethodsLog[RequestMethodsLog.length-1]);
+app.use(morganlogs('dev'));
 
-if(RequestMethodsLog.includes('error')){ throw new Error('error');}
+const router = app.router
+router.get('/hello', (req, res) => {
+  res.send('hello world')
+})
 
-//if(RequestMethodsLog.length==10){RequestMethodsLog[(RequestMethodsLog.length-RequestM>
-
-callback(); //Successful callback
+router.get('/hello1', (req, res) => {
+  res.send('hello world')
+})
 
 
-}catch(err){
-callback(err);
-}
-  }
-});
+let routeList = app._router;
 
-const DevFormat = morganlogs(function (tokens, req, res) {
-return [
-    tokens.method(req, res),
-    tokens.url(req, res),
-    tokens.status(req, res),
-    tokens.res(req, res, 'content-length'), '-',
-    tokens['response-time'](req, res), 'ms'
-  ].join(' ')
-},{stream:StreamObject});
-
-app.use(DevFormat);
-
-
-
+console.log(...corsOptions)
 app.get('/', (req, res) => {
-res.send(JSON.stringify('Connections Dashboard'));
+
+res.send(JSON.stringify(app));
 
 });
+
+
 
 app.get('/stats',(req, res) => {
 
 //Send route stats and JSON payload
 //const PageHtml= RequestMethodsLog.map((x)=>x).join(' ');
+
+
 const PageHtml= RequestMethodsLog.map((Request) => `<li><b>${Request}</b></li>`).join(' ');
 console.log("#STATS ROUTE#");
 
@@ -88,9 +72,12 @@ app.get('/parser', (req, res) => {
 
 
 
-app.listen(port, () => {
-  console.log(`Listening on http://localhost:${port}`);
-});
 
-module.exports = { app }
+app.listen(port, (req ,res) => {
+     console.log(`Server listening on ${port}`);
+    });
+
+
+
+module.exports = {router, app, port}
 

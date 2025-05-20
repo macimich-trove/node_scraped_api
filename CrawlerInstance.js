@@ -1,5 +1,7 @@
+//For finer control of scraper functionality
 const cheerio = require('cheerio');
-const pm2 = require('pm2');
+
+const pm2 = require('pm2'); 
 const axios = require('axios');
 const htmlparser = require('node-html-parser'); 
 
@@ -18,7 +20,7 @@ if(regex!==null && flags!==null){
    var RegExp = new RegExp(regex, flags);
 }
 
-axios.get(endpoint)
+axios.get(endpoint,document.querySelectorall("*"))
   .then(function (response) {
     console.log(response);
   })
